@@ -23,29 +23,12 @@ jobs:
             const hasRequired = requiredVariants.some(name => labels.includes(name));
             core.setOutput("has-required-label", hasRequired ? "true" : "false");
 
-      - name: Comment default assignment notice
-        if: steps.label-check.outputs.has-required-label == 'false'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = [
-              "This issue is assigned to @nisalgunawardhana by default so nothing gets stuck.\n\n",
-              "If someone else should handle it, please update the assignees right away."
-            ].join("");
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body
-            });
-
       - name: Comment completion level warning
         if: steps.label-check.outputs.has-required-label == 'false'
         uses: actions/github-script@v7
         with:
           script: |
-            const imageUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/main/images/level_misssing.png`;
+            const imageUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/main/images/level_missing.png`;
             const body = [
               "Warning: your completion lavel was missing.\n\n",
               `![Completion level missing](${imageUrl})\n\n`,
