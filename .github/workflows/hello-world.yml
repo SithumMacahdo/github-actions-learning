@@ -1,10 +1,7 @@
 name: Hello World Workflow
 
 name: Hello World
-on: [push]
 
-name: Hello World
-on: [push]
 
 on:
   push:
